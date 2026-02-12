@@ -1,0 +1,64 @@
+/**
+ * CSS Variables for theming
+ * Based on Rengus Digital brand guidelines - Charte Graphique
+ * 
+ * Couleurs officielles :
+ * - Primary (Bleu) : #2A3C8E (RGB: 42, 60, 142)
+ * - Accent (Rouge) : #b1112a (RGB: 177, 17, 42)
+ * - Accent Dark (Rouge foncé) : #930a12 (RGB: 147, 10, 18)
+ * - Blanc : #FFFFFF
+ * - Noir : #000000
+ * 
+ * Typographie : BAHNSCHRIFT
+ */
+
+:root {
+  /* Colors - Primary (Bleu Rengus Digital #2A3C8E) */
+  --color-primary: #2A3C8E;
+  --color-primary-dark: #1e2a6b;
+  --color-primary-light: #4a5ba8;
+  --color-primary-rgb: 42, 60, 142;
+
+  /* Colors - Accent (Rouge Rengus Digital #b1112a) */
+  --color-accent: #b1112a;
+  --color-accent-dark: #930a12;
+  --color-accent-light: #d41a3a;
+  --color-accent-rgb: 177, 17, 42;
+
+  /* Colors - Base (selon charte graphique) */
+  --color-white: #FFFFFF;
+  --color-black: #000000;
+
+  /* Colors - Neutral (pour les textes et arrière-plans) */
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Typography - Inter (Police recommandée agence digitale high-tech) */
+  --font-family-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-family-serif: Georgia, serif;
+  --font-family-mono: 'Courier New', monospace;
+
+  /* Breakpoints (for reference, use Tailwind classes) */
+  --breakpoint-sm: 640px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
+  --breakpoint-2xl: 1536px;
+}
+

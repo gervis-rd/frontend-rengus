@@ -1,40 +1,144 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app).
+# Rengus Digital - Landing Page
 
-## Getting Started
+Site web de landing page pour Rengus Digital, développé avec Next.js, TypeScript et Tailwind CSS.
 
-First, run the development server:
+## 🏗️ Structure du Projet
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+rengus/
+├── public/                 # Assets statiques
+│   ├── images/            # Images du site
+│   ├── icons/             # Icônes
+│   └── ...
+├── src/
+│   ├── components/        # Composants React
+│   │   ├── ui/           # Composants UI réutilisables (Button, Card, etc.)
+│   │   ├── sections/     # Sections de la landing page (Hero, About, Services, etc.)
+│   │   └── layout/       # Composants de layout (Header, Layout, Footer)
+│   ├── config/           # Configuration (site, SEO)
+│   ├── constants/        # Constantes et données statiques
+│   ├── hooks/            # Hooks React personnalisés
+│   ├── lib/              # Utilitaires et helpers
+│   ├── pages/            # Pages Next.js (Pages Router)
+│   ├── styles/           # Styles globaux et CSS
+│   └── types/            # Définitions TypeScript
+├── .env.example          # Exemple de variables d'environnement
+├── next.config.ts        # Configuration Next.js
+├── package.json          # Dépendances du projet
+└── tsconfig.json         # Configuration TypeScript
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📁 Organisation des Dossiers
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+### `/src/components/`
+- **`ui/`** : Composants UI de base réutilisables (Button, Card, Input, etc.)
+- **`sections/`** : Sections principales de la landing page
+  - `Hero.tsx` - Section héro principale
+  - `About.tsx` - Section à propos
+  - `Services.tsx` - Section services
+  - `Portfolio.tsx` - Section portfolio
+  - `Testimonials.tsx` - Section témoignages
+  - `Contact.tsx` - Section contact
+  - `Footer.tsx` - Pied de page
+- **`layout/`** : Composants de structure
+  - `Header.tsx` - En-tête avec navigation
+  - `Layout.tsx` - Layout principal
 
-[API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+### `/src/lib/`
+- **`utils.ts`** : Fonctions utilitaires (cn, formatPhoneNumber, isValidEmail, etc.)
+- **`constants.ts`** : Constantes de l'application (navigation, liens sociaux, etc.)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/pages/building-your-application/routing/api-routes) instead of React pages.
+### `/src/config/`
+- **`site.ts`** : Configuration générale du site
+- **`seo.ts`** : Configuration et utilitaires SEO
 
-This project uses [`next/font`](https://nextjs.org/docs/pages/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### `/src/types/`
+- **`index.ts`** : Définitions TypeScript pour les types de données (Service, Project, Testimonial, etc.)
 
-## Learn More
+### `/src/hooks/`
+- **`useScroll.ts`** : Hook personnalisé pour le suivi du scroll
+- Autres hooks personnalisés selon les besoins
 
-To learn more about Next.js, take a look at the following resources:
+### `/src/constants/`
+- **`services.ts`** : Données des services
+- Autres constantes de données
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn-pages-router) - an interactive Next.js tutorial.
+## 🚀 Démarrage
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Installation des dépendances
+```bash
+pnpm install
+```
 
-## Deploy on Vercel
+### Développement
+```bash
+pnpm dev
+```
+Le site sera accessible sur [http://localhost:3000](http://localhost:3000)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Build de production
+```bash
+pnpm build
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/pages/building-your-application/deploying) for more details.
+### Démarrage en production
+```bash
+pnpm start
+```
+
+## 🛠️ Technologies Utilisées
+
+- **Next.js 16** - Framework React
+- **TypeScript** - Typage statique
+- **Tailwind CSS 4** - Framework CSS utility-first
+- **React 19** - Bibliothèque UI
+
+## 📝 Notes de Développement
+
+### Ajout de nouveaux composants
+1. Créer le composant dans le dossier approprié (`ui/`, `sections/`, ou `layout/`)
+2. Exporter le composant depuis le fichier `index.ts` du dossier parent
+3. Utiliser les types définis dans `/src/types/`
+
+### Personnalisation des couleurs
+Les couleurs peuvent être personnalisées dans :
+- `/src/styles/variables.css` - Variables CSS
+- Configuration Tailwind (si nécessaire)
+
+### Ajout de nouvelles sections
+1. Créer le composant dans `/src/components/sections/`
+2. L'exporter depuis `/src/components/sections/index.ts`
+3. L'ajouter dans la page principale (`/src/pages/index.tsx`)
+
+## 📦 Structure des Données
+
+Les types de données sont définis dans `/src/types/index.ts` :
+- `Service` - Services offerts
+- `Project` - Projets du portfolio
+- `Testimonial` - Témoignages clients
+- `ContactFormData` - Données du formulaire de contact
+
+## 🔧 Configuration
+
+### Variables d'environnement
+Copier `.env.example` vers `.env` et remplir les valeurs :
+```env
+# URL du site (production)
+NEXT_PUBLIC_SITE_URL=https://rengus-digital.com
+
+# URL de l'API Laravel pour le formulaire de contact
+# En local : http://localhost:8000
+# En production : https://api.votredomaine.com
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
+
+### Formulaire de contact et backend
+Le formulaire de contact (`/contact`) envoie les données au backend Laravel (`rengus-api`). À chaque soumission :
+1. Les données sont enregistrées en base
+2. Un email de notification est envoyé à l'équipe (via SMTP configuré)
+
+**Prérequis :** Démarrez l'API Laravel : `cd rengus-api && php artisan serve`
+
+## 📄 Licence
+
+Propriétaire - Rengus Digital
