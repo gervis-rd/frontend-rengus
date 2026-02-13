@@ -7,10 +7,10 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn install --legacy-peer-deps
-# RUN yarn build
-# RUN yarn build
+RUN npm install --legacy-peer-deps
+# RUN npm build
+# RUN npm build
 
 EXPOSE 3000
 
-CMD [ "yarn", "dev" ]
+CMD [ "npm", "dev" ]
