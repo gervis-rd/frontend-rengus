@@ -21,20 +21,20 @@ const Contact: React.FC = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  // Gestion des changements dans le formulaire
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const target = e.target;
     const { name, value, type } = target;
     const checked = 'checked' in target ? target.checked : undefined;
     setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
 
-    // Clear error on change
-    if (errors[name as keyof ContactFormData]) {
-      setErrors(prev => ({ ...prev, [name]: undefined }));
-    }
+    // Clear errors and reset status
+    if (errors[name as keyof ContactFormData]) setErrors(prev => ({ ...prev, [name]: undefined }));
     if (submitError) setSubmitError(null);
     if (submitSuccess) setSubmitSuccess(false);
   };
 
+  // Envoi du formulaire
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -54,7 +54,7 @@ const Contact: React.FC = () => {
     setSubmitError(null);
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(`${siteConfig.apiUrl}/api/contact`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -67,6 +67,7 @@ const Contact: React.FC = () => {
         return;
       }
 
+      // Réinitialisation du formulaire après succès
       setFormData({ name: '', email: '', subject: '', message: '', privacyAgree: false });
       setErrors({});
       setSubmitSuccess(true);
@@ -120,20 +121,26 @@ const Contact: React.FC = () => {
 
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <input
-                        name="name"
-                        placeholder="Nom"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-                      />
-                      <input
-                        name="email"
-                        placeholder="Email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-                      />
+                      <div>
+                        <input
+                          name="name"
+                          placeholder="Nom"
+                          value={formData.name}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        />
+                        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+                      </div>
+                      <div>
+                        <input
+                          name="email"
+                          placeholder="Email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                        />
+                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+                      </div>
                     </div>
 
                     <input
@@ -152,6 +159,7 @@ const Contact: React.FC = () => {
                       rows={5}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg"
                     />
+                    {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
 
                     <label className="flex items-center gap-2">
                       <input
@@ -163,6 +171,7 @@ const Contact: React.FC = () => {
                       />
                       J'accepte la politique de confidentialité
                     </label>
+                    {errors.privacyAgree && <p className="text-red-500 text-sm mt-1">Veuillez accepter la politique de confidentialité.</p>}
 
                     <button
                       type="submit"
@@ -174,7 +183,7 @@ const Contact: React.FC = () => {
                   </form>
                 </div>
 
-                {/* Contact Info */}
+                {/* Infos Contact */}
                 <div className="bg-gray-50 p-6 md:p-8 lg:p-10">
                   {Object.entries(CONTACT_INFO).map(([key, value]) => (
                     <div key={key} className="mb-4">
