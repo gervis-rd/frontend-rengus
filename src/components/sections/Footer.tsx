@@ -27,9 +27,6 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-2xl font-bold mb-2 text-white">Rengus Digital</h3>
             <p className="text-accent-light font-semibold mb-2">DIGITALISEZ POUR AVANCER.</p>
-            <p className="text-gray-400">
-              Solutions digitales pour la transformation du secteur du transport
-            </p>
           </div>
           <div>
             <h4 className="font-semibold mb-4">Navigation</h4>

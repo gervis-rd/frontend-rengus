@@ -69,10 +69,10 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
           {/* CTA Button */}
           <div className="flex items-center">
             <Link
-              href="/contact"
+              href="https://rdvpermis.ga/rengus"
               className="px-6 py-2.5 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-semibold text-sm md:text-base whitespace-nowrap"
             >
-              Besoin d'aide ?
+              Rendez-vous Permis
             </Link>
           </div>
         </div>
