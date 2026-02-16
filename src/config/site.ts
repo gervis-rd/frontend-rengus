@@ -17,8 +17,8 @@ export const siteConfig = {
   slogan: 'DIGITALISEZ POUR AVANCER.',
   description: 'Solutions digitales innovantes pour la dématérialisation, l\'authentification et la consultation en temps réel des documents de transport. Renforcez la transparence, la traçabilité et la fiabilité de votre chaîne logistique.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://rengus-digital.com',
-  /** URL de l'API Laravel pour le formulaire de contact */
-  apiUrl: process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000',
+  /** URL de l'API Next.js (même origine que le site) */
+  apiUrl: process.env.NEXT_PUBLIC_API_URL || process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:60153',
   author: 'Rengus Digital',
   keywords: [
     'digitalisation transport',
