@@ -90,7 +90,7 @@ const AnimatedNumber: React.FC<AnimatedNumberProps> = ({ value, duration = 2000 
   }, [isVisible, targetNumber, duration]);
 
   return (
-    <div ref={numberRef} className="text-black text-3xl md:text-4xl font-bold">
+    <div ref={numberRef} className="text-black text-2xl sm:text-3xl md:text-4xl font-bold">
       {displayValue.toLocaleString()}{suffix}
     </div>
   );
@@ -142,14 +142,14 @@ const Portfolio: React.FC<PortfolioProps> = ({ className = '', projects = [] }) 
   ];
 
   return (
-    <section id="portfolio" className={`py-20 bg-white ${className}`}>
-      <div className="container mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
-        <h2 className="text-4xl font-bold text-center mb-12 text-primary">Nos Réalisations</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+    <section id="portfolio" className={`py-12 sm:py-16 md:py-20 bg-white ${className}`}>
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20">
+        <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-primary">Nos Réalisations</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {statistics.map((stat) => (
             <div 
               key={stat.id} 
-              className="bg-white rounded-lg p-6 md:p-8 flex flex-col items-center text-center space-y-4 shadow-sm hover:shadow-md transition-shadow"
+              className="bg-white rounded-lg p-4 sm:p-6 md:p-8 flex flex-col items-center text-center space-y-3 sm:space-y-4 shadow-sm hover:shadow-md transition-shadow"
             >
               {/* Icône */}
               <div className="text-primary">

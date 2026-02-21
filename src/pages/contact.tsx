@@ -162,20 +162,20 @@ const Contact: React.FC = () => {
             <div className="absolute inset-0 bg-black/40 z-10" />
           </div>
 
-          <div className="relative z-20 container mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
-            <div className="text-center mb-12 md:mb-16">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4">
+          <div className="relative z-20 container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20">
+            <div className="text-center mb-8 md:mb-12 lg:mb-16">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 md:mb-4">
                 N&apos;hésitez pas à nous contacter
               </h1>
-              <p className="text-white/90 text-lg md:text-xl max-w-2xl mx-auto">
+              <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
               Rengus Digital, agence digitale spécialisée en développement web et solutions numériques, vous accompagne dans votre transformation digitale.
               </p>
             </div>
 
-            <div className="bg-white rounded-2xl shadow-2xl overflow-hidden max-w-6xl mx-auto">
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden max-w-6xl mx-auto">
               <div className="grid grid-cols-1 lg:grid-cols-2">
                 {/* Formulaire */}
-                <div className="p-6 md:p-8 lg:p-10">
+                <div className="p-4 sm:p-6 md:p-8 lg:p-10">
                   {submitSuccess && (
                     <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">
                       Votre message a été envoyé avec succès.
@@ -252,7 +252,7 @@ const Contact: React.FC = () => {
                 </div>
 
                 {/* Infos Contact avec icônes */}
-                <div className="bg-gray-50 p-6 md:p-8 lg:p-10 flex flex-col justify-center">
+                <div className="bg-gray-50 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col justify-center">
                   {(Object.entries(CONTACT_INFO) as [keyof typeof CONTACT_INFO, string][]).map(([key, value]) => (
                     <div key={key} className="flex items-start gap-4 mb-6 last:mb-0">
                       <span className="mt-0.5" aria-hidden>

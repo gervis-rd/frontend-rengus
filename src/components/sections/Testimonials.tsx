@@ -79,11 +79,11 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className = '', teamMembers
   const teamToDisplay = teamMembers.length > 0 ? teamMembers : defaultTeam;
 
   return (
-    <section id="team" className={`py-20 bg-white ${className}`}>
-      <div className="container mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
+    <section id="team" className={`py-12 sm:py-16 md:py-20 bg-white ${className}`}>
+      <div className="container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20">
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-black relative inline-block">
+        <div className="text-center mb-10 md:mb-16">
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 md:mb-4 text-black relative inline-block">
             Rencontrez Nos{' '}
             <span className="relative">
               Talents
@@ -99,13 +99,13 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className = '', teamMembers
               </svg>
             </span>
           </h2>
-          <p className="text-gray-600 text-base md:text-lg max-w-2xl mx-auto leading-relaxed">
+          <p className="text-gray-600 text-sm sm:text-base md:text-lg max-w-2xl mx-auto leading-relaxed px-2">
             Obtenez le conseil professionnel adapté de Rengus Digital. Nous sommes là pour vous conseiller selon vos besoins en matière de digitalisation du transport.
           </p>
         </div>
 
         {/* Team Grid - 3 colonnes : 3 cartes + 3 cartes */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {teamToDisplay.map((member) => (
             <div 
               key={member.id} 
@@ -138,16 +138,16 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className = '', teamMembers
               {/* Content */}
               <div className="relative z-10">
                 {/* Avatar - Square */}
-                <div className="flex justify-center mb-4">
+                <div className="flex justify-center mb-3 md:mb-4">
                   {member.avatar ? (
                     <img 
                       src={member.avatar} 
                       alt={member.name}
-                      className="w-32 h-32 rounded-lg object-cover shadow-md"
+                      className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-lg object-cover shadow-md"
                     />
                   ) : (
-                    <div className="w-32 h-32 rounded-lg bg-primary flex items-center justify-center shadow-md">
-                      <span className="text-white text-3xl font-bold">
+                    <div className="w-24 h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 rounded-lg bg-primary flex items-center justify-center shadow-md">
+                      <span className="text-white text-2xl sm:text-3xl font-bold">
                         {member.name.charAt(0).toUpperCase()}
                       </span>
                     </div>
@@ -155,12 +155,12 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className = '', teamMembers
                 </div>
                 
                 {/* Name */}
-                <h3 className="text-base md:text-lg font-bold text-center mb-1 text-black">
+                <h3 className="text-sm sm:text-base md:text-lg font-bold text-center mb-1 text-black break-words">
                   {member.name}
                 </h3>
                 
                 {/* Role */}
-                <p className="text-center text-gray-500 text-sm mb-4">
+                <p className="text-center text-gray-500 text-xs sm:text-sm mb-3 md:mb-4">
                   {member.role}
                 </p>
                 
