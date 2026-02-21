@@ -83,7 +83,7 @@ const Services: React.FC<ServicesProps> = ({ className = '', services = [] }) =>
   const servicesToDisplay = services.length > 0 ? services.slice(0, 4) : defaultServices;
 
   return (
-    <section id="services" className={`py-20 relative ${className} overflow-hidden`}>
+    <section id="services" className={`py-12 sm:py-16 md:py-20 relative ${className} overflow-hidden`}>
       {/* Animated GIF Background */}
       <div className="absolute inset-0 z-0">
         <div 
@@ -99,24 +99,24 @@ const Services: React.FC<ServicesProps> = ({ className = '', services = [] }) =>
         <div className="absolute inset-0 bg-black/60 z-10"></div>
       </div>
       
-      <div className="relative z-20 container mx-auto px-6 md:px-12 lg:px-16 xl:px-20">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+      <div className="relative z-20 container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20">
+        <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center">
           {/* Section gauche - Contenu textuel */}
-          <div className="space-y-6">
+          <div className="space-y-4 md:space-y-6">
             {/* Petit titre */}
             <div className="space-y-2">
-              <h3 className="text-accent text-lg font-medium">Ce Que Nous Proposons</h3>
+              <h3 className="text-accent text-base sm:text-lg font-medium">Ce Que Nous Proposons</h3>
               <div className="w-16 h-0.5 bg-accent"></div>
             </div>
 
             {/* Grand titre */}
-            <h2 className="text-4xl md:text-5xl font-bold leading-tight">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold leading-tight">
               <span className="text-accent">Services</span>
               <span className="text-white"> Que Nous Pouvons Vous Offrir !</span>
             </h2>
 
             {/* Description */}
-            <div className="text-white text-base leading-relaxed">
+            <div className="text-white text-sm sm:text-base leading-relaxed">
               <p>
                 Rengus Digital propose des services digitaux sur mesure pour accompagner les entreprises et institutions dans leur transformation numérique. Du développement web et applicatif à la communication digitale, nous concevons des solutions performantes, sécurisées et évolutives, pensées pour répondre aux besoins réels de nos clients et soutenir leur croissance.
               </p>
@@ -138,15 +138,15 @@ const Services: React.FC<ServicesProps> = ({ className = '', services = [] }) =>
           </div>
 
           {/* Section droite - Grille de cartes */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
             {servicesToDisplay.map((service) => (
               <div 
                 key={service.id} 
-                className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow flex flex-col"
+                className="bg-white p-4 sm:p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow flex flex-col"
               >
                 {/* Icône circulaire */}
-                <div className="flex justify-center mb-4">
-                  <div className="w-16 h-16 rounded-full bg-accent flex items-center justify-center flex-shrink-0">
+                <div className="flex justify-center mb-3 sm:mb-4">
+                  <div className="w-12 h-12 sm:w-16 sm:h-16 rounded-full bg-accent flex items-center justify-center flex-shrink-0 overflow-hidden">
                     {ServiceIcons[service.id] || (
                       <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="20" cy="20" r="8" stroke="white" strokeWidth="2"/>
@@ -156,12 +156,12 @@ const Services: React.FC<ServicesProps> = ({ className = '', services = [] }) =>
                 </div>
 
                 {/* Titre */}
-                <h3 className="text-lg md:text-xl font-bold text-black mb-3 text-center">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-black mb-2 sm:mb-3 text-center">
                   {service.title}
                 </h3>
 
                 {/* Description */}
-                <p className="text-gray-700 text-xs md:text-sm leading-relaxed text-center flex-grow">
+                <p className="text-gray-700 text-xs sm:text-sm leading-relaxed text-center flex-grow">
                   {service.description}
                 </p>
               </div>

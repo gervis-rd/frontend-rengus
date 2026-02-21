@@ -91,12 +91,12 @@ const Hero: React.FC<HeroProps> = ({ className = '' }) => {
         <div className="absolute inset-0 bg-black/40 z-10"></div>
       </div>
 
-      {/* Content */}
-      <div className="relative z-20 container mx-auto px-6 md:px-8 lg:px-12 pt-24 pb-4 md:pt-28 md:pb-6 text-center">
-        <div className="max-w-4xl mx-auto">
+      {/* Content - pleine largeur avec padding pour éviter marges bizarres et débordements */}
+      <div className="relative z-20 w-full box-border px-4 py-20 sm:px-6 sm:pt-24 md:px-8 md:pt-28 md:pb-6 pb-4 text-center max-w-[100vw]">
+        <div className="max-w-4xl mx-auto w-full">
           {/* Company Name */}
           <h1 
-            className={`text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-tight transition-all duration-1000 ${
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight transition-all duration-1000 ${
               isVisible 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-8'
@@ -106,9 +106,9 @@ const Hero: React.FC<HeroProps> = ({ className = '' }) => {
             Rengus Digital
           </h1>
 
-          {/* Main Headline */}
+          {/* Main Headline - évite coupure "dig" avec min-width sur le bloc */}
           <h2 
-            className={`text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-6 leading-tight transition-all duration-1000 ${
+            className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-4 sm:mb-6 leading-tight transition-all duration-1000 ${
               isVisible 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-8'
@@ -120,7 +120,7 @@ const Hero: React.FC<HeroProps> = ({ className = '' }) => {
 
           {/* Description Paragraph */}
           <p 
-            className={`text-base md:text-lg lg:text-xl text-white/90 mb-10 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 ${
+            className={`text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 ${
               isVisible 
                 ? 'opacity-100 translate-y-0' 
                 : 'opacity-0 translate-y-8'
@@ -141,7 +141,7 @@ const Hero: React.FC<HeroProps> = ({ className = '' }) => {
           >
             <Link 
               href="/contact"
-              className="px-8 py-4 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-semibold text-base md:text-lg text-center"
+              className="px-6 py-3.5 sm:px-8 sm:py-4 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-semibold text-base md:text-lg text-center inline-block max-w-full"
             >
               En savoir plus
             </Link>

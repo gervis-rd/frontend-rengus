@@ -26,10 +26,28 @@
   }
 }
 
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-family-sans);
+  overflow-x: hidden;
+}
+
+/* Grille À propos : colonnes qui peuvent rétrécir pour éviter que le texte soit coupé */
+.about-grid-safe {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+
+@media (max-width: 1023px) {
+  .about-grid-safe {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Utility classes */
