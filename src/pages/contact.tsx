@@ -1,40 +1,28 @@
 import React, { useState } from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
+import { Mail, MapPin, Clock, Phone } from 'lucide-react';
 import Layout from '@/components/layout/Layout';
 import type { ContactFormData } from '@/types';
 import { isValidEmail } from '@/lib/utils';
 import { siteConfig } from '@/config/site';
 import { generateSEOMeta } from '@/config/seo';
 import { CONTACT_INFO } from '@/lib/constants';
+import { Section } from '@/components/ui/section';
+import { SectionHeader } from '@/components/ui/section-header';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
+import { Checkbox } from '@/components/ui/checkbox';
 
-const iconSize = 24;
-const iconClass = 'flex-shrink-0 text-[#2A3C8E]';
-
-const ContactIcons: Record<keyof typeof CONTACT_INFO, React.ReactNode> = {
-  email: (
-    <svg className={iconClass} width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect x="2" y="4" width="20" height="16" rx="2" />
-      <path d="m22 6-10 7L2 6" />
-    </svg>
-  ),
-  phone: (
-    <svg className={iconClass} width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
-    </svg>
-  ),
-  address: (
-    <svg className={iconClass} width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-      <circle cx="12" cy="10" r="3" />
-    </svg>
-  ),
-  workHours: (
-    <svg className={iconClass} width={iconSize} height={iconSize} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 6v6l4 2" />
-    </svg>
-  ),
-};
+const contactItems = [
+  { key: 'email', label: 'Email', value: CONTACT_INFO.email, icon: Mail },
+  { key: 'phone', label: 'Téléphone', value: CONTACT_INFO.phone, icon: Phone },
+  { key: 'address', label: 'Adresse', value: CONTACT_INFO.address, icon: MapPin },
+  { key: 'workHours', label: 'Horaires', value: CONTACT_INFO.workHours, icon: Clock },
+] as const;
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState<ContactFormData>({
@@ -44,26 +32,21 @@ const Contact: React.FC = () => {
     message: '',
     privacyAgree: false,
   });
-
   const [errors, setErrors] = useState<Partial<ContactFormData>>({});
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  // Gestion des changements dans le formulaire
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const target = e.target;
-    const { name, value, type } = target;
-    const checked = 'checked' in target ? target.checked : undefined;
-    setFormData(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
-
-    // Clear errors and reset status
-    if (errors[name as keyof ContactFormData]) setErrors(prev => ({ ...prev, [name]: undefined }));
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (errors[name as keyof ContactFormData]) {
+      setErrors((prev) => ({ ...prev, [name]: undefined }));
+    }
     if (submitError) setSubmitError(null);
     if (submitSuccess) setSubmitSuccess(false);
   };
 
-  // Envoi du formulaire
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -83,13 +66,11 @@ const Contact: React.FC = () => {
     setSubmitError(null);
 
     try {
-      // URL relative : l'API est sur le même serveur Next.js (évite Failed to fetch en dev)
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
-
       const data = await response.json();
 
       if (!response.ok) {
@@ -97,13 +78,11 @@ const Contact: React.FC = () => {
         return;
       }
 
-      // Réinitialisation du formulaire après succès
       setFormData({ name: '', email: '', subject: '', message: '', privacyAgree: false });
       setErrors({});
       setSubmitSuccess(true);
       setTimeout(() => setSubmitSuccess(false), 5000);
-    } catch (err) {
-      console.error('Erreur lors de l’envoi du formulaire:', err);
+    } catch {
       setSubmitError("Impossible d'envoyer le message. Vérifiez la configuration SMTP.");
     } finally {
       setIsSubmitting(false);
@@ -112,7 +91,7 @@ const Contact: React.FC = () => {
 
   const seoMeta = generateSEOMeta({
     title: `Contact - ${siteConfig.name}`,
-    description: `Contactez ${siteConfig.name} pour vos besoins en digitalisation du transport.`,
+    description: `Contactez ${siteConfig.name} pour discuter de votre projet digital.`,
   });
 
   return (
@@ -123,152 +102,129 @@ const Contact: React.FC = () => {
       </Head>
 
       <Layout>
-        <section className="relative pt-28 md:pt-36 lg:pt-40 pb-16 min-h-screen overflow-hidden">
-          {/* Background animé (même style que le Hero) */}
-          <div className="absolute inset-0 z-0">
-            <div
-              className="absolute inset-0 bg-cover bg-center"
-              style={{
-                backgroundImage: "url('/images/hero-land.gif')",
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                backgroundRepeat: 'no-repeat',
-              }}
-            />
-            <div
-              className="absolute inset-0 opacity-20"
-              style={{
-                background: 'linear-gradient(45deg, rgba(42, 60, 142, 0.2) 0%, rgba(177, 17, 42, 0.15) 50%, rgba(42, 60, 142, 0.2) 100%)',
-                backgroundSize: '200% 200%',
-                animation: 'gradientShift 15s ease infinite',
-              }}
-            />
-            <div className="absolute inset-0 overflow-hidden">
-              {[...Array(15)].map((_, i) => (
-                <div
-                  key={i}
-                  className="absolute rounded-full bg-white/15"
-                  style={{
-                    width: `${Math.random() * 4 + 2}px`,
-                    height: `${Math.random() * 4 + 2}px`,
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                    animation: `float ${15 + Math.random() * 10}s ease-in-out infinite`,
-                    animationDelay: `${Math.random() * 5}s`,
-                  }}
-                />
-              ))}
-            </div>
-            <div className="absolute inset-0 bg-black/40 z-10" />
-          </div>
+        <Section className="bg-muted/30 pt-28 md:pt-32">
+          <SectionHeader
+            eyebrow="Contact"
+            title="Parlons de votre projet"
+            description="Une question, un besoin ou un projet en tête ? Notre équipe vous répond rapidement."
+          />
 
-          <div className="relative z-20 container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20">
-            <div className="text-center mb-8 md:mb-12 lg:mb-16">
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-3 md:mb-4">
-                N&apos;hésitez pas à nous contacter
-              </h1>
-              <p className="text-white/90 text-base sm:text-lg md:text-xl max-w-2xl mx-auto">
-              Rengus Digital, agence digitale spécialisée en développement web et solutions numériques, vous accompagne dans votre transformation digitale.
-              </p>
-            </div>
+          <div className="mx-auto mt-12 grid max-w-5xl gap-8 lg:grid-cols-5">
+            <Card className="border-border/60 lg:col-span-3">
+              <CardContent className="p-6 sm:p-8">
+                {submitSuccess && (
+                  <div className="mb-6 rounded-lg border border-green-200 bg-green-50 p-4 text-sm text-green-800">
+                    Votre message a été envoyé avec succès.
+                  </div>
+                )}
+                {submitError && (
+                  <div className="mb-6 rounded-lg border border-red-200 bg-red-50 p-4 text-sm text-red-800">
+                    {submitError}
+                  </div>
+                )}
 
-            <div className="bg-white rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden max-w-6xl mx-auto">
-              <div className="grid grid-cols-1 lg:grid-cols-2">
-                {/* Formulaire */}
-                <div className="p-4 sm:p-6 md:p-8 lg:p-10">
-                  {submitSuccess && (
-                    <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">
-                      Votre message a été envoyé avec succès.
+                <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid gap-4 sm:grid-cols-2">
+                    <div className="space-y-2">
+                      <Label htmlFor="name">Nom</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        placeholder="Votre nom"
+                        value={formData.name}
+                        onChange={handleChange}
+                        aria-invalid={!!errors.name}
+                      />
+                      {errors.name && <p className="text-sm text-destructive">{errors.name}</p>}
                     </div>
-                  )}
-                  {submitError && (
-                    <div className="mb-6 p-4 bg-red-50 border border-red-200 rounded-lg text-red-800 text-sm">
-                      {submitError}
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        placeholder="Votre email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        aria-invalid={!!errors.email}
+                      />
+                      {errors.email && <p className="text-sm text-destructive">{errors.email}</p>}
                     </div>
-                  )}
+                  </div>
 
-                  <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <input
-                          name="name"
-                          placeholder="Nom"
-                          value={formData.name}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-                        />
-                        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
-                      </div>
-                      <div>
-                        <input
-                          name="email"
-                          placeholder="Email"
-                          value={formData.email}
-                          onChange={handleChange}
-                          className="w-full px-4 py-3 border border-gray-300 rounded-lg"
-                        />
-                        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
-                      </div>
-                    </div>
-
-                    <input
+                  <div className="space-y-2">
+                    <Label htmlFor="subject">Sujet</Label>
+                    <Input
+                      id="subject"
                       name="subject"
-                      placeholder="Sujet"
+                      placeholder="Sujet de votre message"
                       value={formData.subject}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg"
                     />
+                  </div>
 
-                    <textarea
+                  <div className="space-y-2">
+                    <Label htmlFor="message">Message</Label>
+                    <Textarea
+                      id="message"
                       name="message"
-                      placeholder="Message"
+                      placeholder="Décrivez votre projet ou votre besoin"
                       value={formData.message}
                       onChange={handleChange}
                       rows={5}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg"
+                      aria-invalid={!!errors.message}
                     />
-                    {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+                    {errors.message && <p className="text-sm text-destructive">{errors.message}</p>}
+                  </div>
 
-                    <label className="flex items-center gap-2">
-                      <input
-                        type="checkbox"
-                        name="privacyAgree"
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Checkbox
+                        id="privacyAgree"
                         checked={formData.privacyAgree}
-                        onChange={handleChange}
-                        className="w-4 h-4 rounded border-gray-300"
+                        onCheckedChange={(checked) => {
+                          setFormData((prev) => ({ ...prev, privacyAgree: checked === true }));
+                          if (errors.privacyAgree) {
+                            setErrors((prev) => ({ ...prev, privacyAgree: undefined }));
+                          }
+                        }}
                       />
-                      J'accepte la politique de confidentialité
-                    </label>
-                    {errors.privacyAgree && <p className="text-red-500 text-sm mt-1">Veuillez accepter la politique de confidentialité.</p>}
-
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="px-6 py-3 text-white rounded-lg transition-colors bg-[#2A3C8E] hover:bg-[#1e2a6b] disabled:opacity-70 disabled:cursor-not-allowed"
-                    >
-                      {isSubmitting ? 'Envoi...' : 'Envoyer le message'}
-                    </button>
-                  </form>
-                </div>
-
-                {/* Infos Contact avec icônes */}
-                <div className="bg-gray-50 p-4 sm:p-6 md:p-8 lg:p-10 flex flex-col justify-center">
-                  {(Object.entries(CONTACT_INFO) as [keyof typeof CONTACT_INFO, string][]).map(([key, value]) => (
-                    <div key={key} className="flex items-start gap-4 mb-6 last:mb-0">
-                      <span className="mt-0.5" aria-hidden>
-                        {ContactIcons[key]}
-                      </span>
-                      <div>
-                        <p className="font-semibold text-gray-900 capitalize">{key === 'workHours' ? 'Horaires' : key === 'address' ? 'Adresse' : key === 'phone' ? 'Téléphone' : 'Email'}</p>
-                        <p className="text-gray-700">{value}</p>
-                      </div>
+                      <Label htmlFor="privacyAgree" className="cursor-pointer font-normal">
+                        J&apos;accepte la{' '}
+                        <Link href="/contact" className="text-primary underline-offset-4 hover:underline">
+                          politique de confidentialité
+                        </Link>
+                      </Label>
                     </div>
-                  ))}
-                </div>
-              </div>
+                    {errors.privacyAgree && (
+                      <p className="text-sm text-destructive">Veuillez accepter la politique de confidentialité.</p>
+                    )}
+                  </div>
+
+                  <Button type="submit" disabled={isSubmitting} size="lg" className="h-11 px-6">
+                    {isSubmitting ? 'Envoi...' : 'Envoyer le message'}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
+
+            <div className="flex flex-col gap-4 lg:col-span-2">
+              {contactItems.map(({ key, label, value, icon: Icon }) => (
+                <Card key={key} className="border-border/60">
+                  <CardContent className="flex items-start gap-4 p-5">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold text-foreground">{label}</p>
+                      <p className="mt-1 text-sm text-muted-foreground">{value}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
             </div>
           </div>
-        </section>
+        </Section>
       </Layout>
     </>
   );

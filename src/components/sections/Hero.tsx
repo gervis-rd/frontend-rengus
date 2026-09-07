@@ -1,149 +1,62 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { buttonVariants } from '@/components/ui/button';
+import { cn } from '@/lib/utils';
+import { siteConfig } from '@/config/site';
 
 interface HeroProps {
   className?: string;
 }
 
 const Hero: React.FC<HeroProps> = ({ className = '' }) => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    // Trigger animation immediately on mount for Hero section
-    const timer = setTimeout(() => {
-      setIsVisible(true);
-    }, 100);
-
-    // Also observe for scroll if user scrolls back up
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-          }
-        });
-      },
-      {
-        threshold: 0.1,
-      }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => {
-      clearTimeout(timer);
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current);
-      }
-    };
-  }, []);
-
   return (
-    <section 
-      ref={sectionRef}
-      id="hero" 
-      className={`relative min-h-screen flex items-center justify-center ${className} overflow-hidden`}
+    <section
+      id="hero"
+      className={`relative flex min-h-[90vh] items-center overflow-hidden pt-20 ${className}`}
     >
-      {/* Background Image with Dark Overlay */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/images/hero-land.gif')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        ></div>
-        
-        {/* Animated Gradient Overlay */}
-        <div 
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: 'linear-gradient(45deg, rgba(42, 60, 142, 0.2) 0%, rgba(177, 17, 42, 0.15) 50%, rgba(42, 60, 142, 0.2) 100%)',
-            backgroundSize: '200% 200%',
-            animation: 'gradientShift 15s ease infinite',
-          }}
-        ></div>
-        
-        {/* Floating Particles */}
-        <div className="absolute inset-0 overflow-hidden">
-          {[...Array(15)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute rounded-full bg-white/15"
-              style={{
-                width: `${Math.random() * 4 + 2}px`,
-                height: `${Math.random() * 4 + 2}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                animation: `float ${15 + Math.random() * 10}s ease-in-out infinite`,
-                animationDelay: `${Math.random() * 5}s`,
-              }}
-            />
-          ))}
-        </div>
-        
-        {/* Dark Overlay - Reduced opacity for better background visibility */}
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
-      </div>
+      <div className="absolute inset-0 bg-gradient-to-br from-primary via-[#1e2a6b] to-[#0f1638]" />
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: "url('/images/hero-land.gif')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
 
-      {/* Content - pleine largeur avec padding pour éviter marges bizarres et débordements */}
-      <div className="relative z-20 w-full box-border px-4 py-20 sm:px-6 sm:pt-24 md:px-8 md:pt-28 md:pb-6 pb-4 text-center max-w-[100vw]">
-        <div className="max-w-4xl mx-auto w-full">
-          {/* Company Name */}
-          <h1 
-            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight transition-all duration-1000 ${
-              isVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-8'
-            }`}
-            style={{ transitionDelay: '0.1s' }}
-          >
-            Rengus Digital
-          </h1>
-
-          {/* Main Headline - évite coupure "dig" avec min-width sur le bloc */}
-          <h2 
-            className={`text-xl sm:text-2xl md:text-3xl lg:text-4xl font-semibold text-white mb-4 sm:mb-6 leading-tight transition-all duration-1000 ${
-              isVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-8'
-            }`}
-            style={{ transitionDelay: '0.3s' }}
-          >
-            Nous concevons des solutions digitales innovantes pour accélérer votre croissance.
-          </h2>
-
-          {/* Description Paragraph */}
-          <p 
-            className={`text-sm sm:text-base md:text-lg lg:text-xl text-white/90 mb-8 sm:mb-10 leading-relaxed max-w-3xl mx-auto transition-all duration-1000 ${
-              isVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-8'
-            }`}
-            style={{ transitionDelay: '0.5s' }}
-          >
-            De la conception à la mise en production, nous transformons vos idées en outils numériques performants, fiables et évolutifs.
+      <div className="relative z-10 container mx-auto px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="mb-4 inline-block rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-sm font-medium text-white/90 backdrop-blur-sm">
+            {siteConfig.slogan}
           </p>
 
-          {/* Call-to-Action Button */}
-          <div 
-            className={`flex justify-center items-center transition-all duration-1000 ${
-              isVisible 
-                ? 'opacity-100 translate-y-0' 
-                : 'opacity-0 translate-y-8'
-            }`}
-            style={{ transitionDelay: '0.7s' }}
-          >
-            <Link 
+          <h1 className="text-4xl font-bold leading-tight tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+            Transformez vos idées en{' '}
+            <span className="text-white/90">succès digitaux</span>
+          </h1>
+
+          <p className="mx-auto mt-6 max-w-2xl text-lg leading-relaxed text-white/85 sm:text-xl">
+            De la stratégie à la mise en production, nous concevons des solutions innovantes qui propulsent votre croissance et modernisent votre activité.
+          </p>
+
+          <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+            <Link
               href="/contact"
-              className="px-6 py-3.5 sm:px-8 sm:py-4 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors font-semibold text-base md:text-lg text-center inline-block max-w-full"
+              className={cn(buttonVariants({ variant: 'secondary', size: 'lg' }), 'h-12 px-8 text-base inline-flex items-center')}
             >
-              En savoir plus
+              Démarrer un projet
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+            <Link
+              href="/#services"
+              className={cn(
+                buttonVariants({ variant: 'outline', size: 'lg' }),
+                'h-12 border-white/30 bg-white/10 px-8 text-base text-white hover:bg-white/20 hover:text-white inline-flex items-center'
+              )}
+            >
+              Découvrir nos services
             </Link>
           </div>
         </div>
@@ -153,4 +66,3 @@ const Hero: React.FC<HeroProps> = ({ className = '' }) => {
 };
 
 export default Hero;
-

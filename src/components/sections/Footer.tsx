@@ -1,98 +1,90 @@
 import React from 'react';
 import Link from 'next/link';
-import { SOCIAL_LINKS, CONTACT_INFO } from '@/lib/constants';
+import Image from 'next/image';
+import { NAV_LINKS } from '@/content/site-content';
+import { CONTACT_INFO, SOCIAL_LINKS } from '@/lib/constants';
+import { siteConfig } from '@/config/site';
+
+const socialItems = [
+  { href: SOCIAL_LINKS.facebook, label: 'Facebook' },
+  { href: SOCIAL_LINKS.linkedin, label: 'LinkedIn' },
+  { href: SOCIAL_LINKS.instagram, label: 'Instagram' },
+];
 
 const Footer: React.FC = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="relative text-white py-10 sm:py-12 overflow-hidden">
-      {/* Animated GIF Background */}
-      <div className="absolute inset-0 z-0">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{
-            backgroundImage: "url('/images/hero-moov.gif')",
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        ></div>
-        {/* Dark Overlay for readability */}
-        <div className="absolute inset-0 bg-black/60 z-10"></div>
-      </div>
-      
-      <div className="relative z-20 container mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 sm:gap-8">
-          <div className="sm:col-span-2 md:col-span-1">
-            <h3 className="text-xl sm:text-2xl font-bold mb-2 text-white">Rengus Digital</h3>
-            <p className="text-accent-light font-semibold mb-2 text-sm sm:text-base">DIGITALISEZ POUR AVANCER.</p>
+    <footer className="bg-primary text-white">
+      <div className="container mx-auto px-4 py-14 sm:px-6 lg:px-8">
+        <div className="flex flex-col gap-10 lg:flex-row lg:items-start lg:gap-12 xl:gap-16">
+          <div className="shrink-0">
+            <Link href="/" className="inline-flex">
+              <Image
+                src="/images/Plan de travail 1.png"
+                alt={siteConfig.name}
+                width={400}
+                height={150}
+                className="h-14 w-auto sm:h-16 lg:h-20"
+              />
+            </Link>
+            <p className="mt-2 text-sm font-semibold text-white/90">{siteConfig.slogan}</p>
+            <p className="mt-4 text-sm leading-relaxed text-white/70">
+              Agence digitale spécialisée en développement web, solutions sur mesure et transformation numérique.
+            </p>
           </div>
-          <div>
-            <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Navigation</h4>
-            <ul className="space-y-1.5 sm:space-y-2 text-sm sm:text-base">
-              <li>
-                <Link href="#about" className="text-gray-400 hover:text-white transition-colors">
-                  À propos
-                </Link>
-              </li>
-              <li>
-                <Link href="#services" className="text-gray-400 hover:text-white transition-colors">
-                  Services
-                </Link>
-              </li>
-              <li>
-                <Link href="#portfolio" className="text-gray-400 hover:text-white transition-colors">
-                  Nos réalisations
-                </Link>
-              </li>
-              <li>
-                <Link href="#contact" className="text-gray-400 hover:text-white transition-colors">
-                  Contact
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Contact</h4>
-            <ul className="space-y-1.5 sm:space-y-2 text-gray-400 text-sm sm:text-base break-words">
-              <li>{CONTACT_INFO.email}</li>
-              <li>{CONTACT_INFO.phone}</li>
-              <li>{CONTACT_INFO.address}</li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-3 sm:mb-4 text-sm sm:text-base">Réseaux sociaux</h4>
-            <div className="flex flex-wrap gap-3 sm:gap-4">
-              <a
-                href={SOCIAL_LINKS.facebook}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Facebook
-              </a>
-              <a
-                href={SOCIAL_LINKS.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                LinkedIn
-              </a>
-              <a
-                href={SOCIAL_LINKS.instagram}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-400 hover:text-white transition-colors"
-              >
-                Instagram
-              </a>
+
+          <div className="grid flex-1 gap-10 sm:grid-cols-2 lg:grid-cols-3">
+            <div>
+              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/90">
+                Navigation
+              </h4>
+              <ul className="space-y-2.5">
+                {NAV_LINKS.map(({ href, label }) => (
+                  <li key={href}>
+                    <Link href={href} className="text-sm text-white/70 transition-colors hover:text-white">
+                      {label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/90">
+                Contact
+              </h4>
+              <ul className="space-y-2.5 text-sm text-white/70">
+                <li>{CONTACT_INFO.email}</li>
+                <li>{CONTACT_INFO.phone}</li>
+                <li>{CONTACT_INFO.address}</li>
+                <li>{CONTACT_INFO.workHours}</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="mb-4 text-sm font-semibold uppercase tracking-wider text-white/90">
+                Réseaux sociaux
+              </h4>
+              <div className="flex flex-wrap gap-3">
+                {socialItems.map(({ href, label }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded-lg bg-white/10 px-3 py-2 text-sm text-white/80 transition-colors hover:bg-white/20 hover:text-white"
+                  >
+                    {label}
+                  </a>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-        <div className="border-t border-gray-800 mt-6 sm:mt-8 pt-6 sm:pt-8 text-center text-gray-400 text-sm sm:text-base">
-          <p>&copy; {currentYear} Rengus Digital. Tous droits réservés.</p>
+
+        <div className="mt-10 border-t border-white/15 pt-8 text-center text-sm text-white/60">
+          <p>&copy; {currentYear} {siteConfig.name}. Tous droits réservés.</p>
         </div>
       </div>
     </footer>
@@ -100,4 +92,3 @@ const Footer: React.FC = () => {
 };
 
 export default Footer;
-

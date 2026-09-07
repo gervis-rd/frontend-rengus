@@ -6,16 +6,16 @@
 export const SITE_CONFIG = {
   name: 'Rengus Digital',
   slogan: 'DIGITALISEZ POUR AVANCER.',
-  description: 'Solutions digitales innovantes pour la dématérialisation, l\'authentification et la consultation en temps réel des documents de transport. Renforcez la transparence, la traçabilité et la fiabilité de votre chaîne logistique.',
+  description: 'Agence digitale spécialisée en développement web, solutions sur mesure et transformation numérique.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://rengus-digital.com',
   ogImage: '/og-image.jpg',
 } as const;
 
 export const NAVIGATION = [
-  { name: 'Accueil', href: '/' },
-  { name: 'À propos', href: '#about' },
-  { name: 'Services', href: '#services' },
-  { name: 'Portfolio', href: '#portfolio' },
+  { name: 'À propos', href: '/#about' },
+  { name: 'Services', href: '/#services' },
+  { name: 'Réalisations', href: '/#portfolio' },
+  { name: 'Équipe', href: '/#team' },
   { name: 'Contact', href: '/contact' },
 ] as const;
 
