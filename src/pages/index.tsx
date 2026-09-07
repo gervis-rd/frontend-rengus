@@ -30,7 +30,6 @@ export default function Home() {
         <meta name="twitter:title" content={seoMeta.twitter.title} />
         <meta name="twitter:description" content={seoMeta.twitter.description} />
         <meta name="twitter:image" content={seoMeta.twitter.images[0]} />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
         <Hero />
