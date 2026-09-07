@@ -28,7 +28,7 @@ export const SOCIAL_LINKS = {
 
 export const CONTACT_INFO = {
   email: 'contact@rengusdigital.tech',
-  phone: '+241 74598866',
+  phone: '+241 74598868',
   address: 'Libreville, Gabon',
   workHours: 'Lun - Sam : 9h - 18h',
 } as const;
