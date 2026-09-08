@@ -15,7 +15,12 @@ export const defaultSEO: SEOProps = {
 export const defaultTitle = `${siteConfig.name} - ${siteConfig.slogan}`;
 
 export function generateSEOMeta({ title, description, image, url }: SEOProps = {}) {
-  const metaTitle = title ? `${title} | ${siteConfig.name}` : defaultSEO.title;
+  const normalizedTitle = title?.trim();
+  const metaTitle = normalizedTitle
+    ? normalizedTitle.includes(siteConfig.name)
+      ? normalizedTitle
+      : `${normalizedTitle} | ${siteConfig.name}`
+    : defaultSEO.title;
   const metaDescription = description || defaultSEO.description;
   const metaImage = image || defaultSEO.image;
   const metaUrl = url || defaultSEO.url;

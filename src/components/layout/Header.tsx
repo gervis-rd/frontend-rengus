@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({ className = '' }) => {
         >
           <Link href="/" className="flex shrink-0 items-center" onClick={closeMenu}>
             <Image
-              src="/images/Plan de travail 1.png"
+              src="/favicon.png"
               alt="Rengus Digital"
               width={400}
               height={150}
