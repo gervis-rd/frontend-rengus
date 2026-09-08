@@ -1,6 +1,7 @@
 import type { Service } from '@/types';
 
 export const NAV_LINKS = [
+  { href: '/#mot-du-directeur', label: 'Mot du Directeur Général' },
   { href: '/#about', label: 'À propos' },
   { href: '/#services', label: 'Services' },
   { href: '/#portfolio', label: 'Réalisations' },

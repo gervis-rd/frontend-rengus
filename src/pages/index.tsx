@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Layout from '@/components/layout/Layout';
 import Hero from '@/components/sections/Hero';
+import DirectorMessage from '@/components/sections/DirectorMessage';
 import About from '@/components/sections/About';
 import Services from '@/components/sections/Services';
 import Portfolio from '@/components/sections/Portfolio';
@@ -33,6 +34,7 @@ export default function Home() {
       </Head>
       <Layout>
         <Hero />
+        <DirectorMessage />
         <About />
         <Services />
         <Portfolio />
