@@ -66,7 +66,7 @@ const About: React.FC<AboutProps> = ({ className = '' }) => {
           <div className="relative mx-auto max-w-lg">
             <div className="absolute -inset-4 rounded-3xl bg-gradient-to-br from-primary/10 via-transparent to-accent/10 blur-2xl" />
             <Image
-              src="/images/work1.jpg"
+              src="/images/14.png"
               alt="Équipe Rengus Digital en collaboration autour d'un projet"
               width={800}
               height={600}
