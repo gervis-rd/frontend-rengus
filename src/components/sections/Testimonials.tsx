@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { TEAM_MEMBERS } from '@/content/site-content';
 import { Section } from '@/components/ui/section';
@@ -17,7 +18,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className = '' }) => {
         description="Une équipe passionnée, experte et engagée pour concevoir des solutions digitales adaptées à vos ambitions."
       />
 
-      <div className="mx-auto mt-12 grid max-w-4xl gap-6 sm:grid-cols-2">
+      <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {TEAM_MEMBERS.map((member) => (
           <Card key={member.id} className="border-border/60 bg-white transition-shadow hover:shadow-md">
             <CardContent className="flex flex-col items-center p-6 text-center sm:p-8">
@@ -44,3 +45,4 @@ const Testimonials: React.FC<TestimonialsProps> = ({ className = '' }) => {
 };
 
 export default Testimonials;
+
