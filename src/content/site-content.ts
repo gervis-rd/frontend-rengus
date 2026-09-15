@@ -50,12 +50,7 @@ export const TEAM_MEMBERS = [
     role: 'Fondatrice & CEO',
     avatar: 'https://ui-avatars.com/api/?name=Madeleine+Orlane&size=128&background=2A3C8E&color=fff',
   },
-  {
-    id: '2',
-    name: 'Ardeche',
-    role: 'Directeur Technique',
-    avatar: 'https://ui-avatars.com/api/?name=Ardeche&size=128&background=2A3C8E&color=fff',
-  },
+  
   {
     id: '4',
     name: 'Gad',
