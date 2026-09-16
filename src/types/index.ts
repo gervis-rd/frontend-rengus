@@ -35,6 +35,18 @@ export interface ContactFormData {
   privacyAgree?: boolean;
 }
 
+export interface NewsArticle {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string[];
+  category: string;
+  date: string;
+  image?: string;
+  images?: string[];
+}
+
 export interface SEOProps {
   title?: string;
   description?: string;
